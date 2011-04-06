@@ -20,6 +20,11 @@
 			<artifactId>guava</artifactId>
 			<version>r07</version>
 		</dependency>
+    <dependency>
+      <groupId>info.piwai.funkyjfunctional</groupId>
+      <artifactId>funkyjfunctional-guava</artifactId>
+      <version>0.3</version>
+    </dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -32,8 +37,12 @@
             <argument>-classpath</argument>
             <classpath/>
             <argument>com.google.caliper.Runner</argument>
-            <argument>AppendBenchmark</argument>
+            <!-- 
+            <argument>ListAppendBenchmark</argument>
             <argument>-DappendCount=100000</argument>
+            -->
+            <argument>FunkyJFilterBenchmark</argument>
+            <argument>-DlistSize=10000,100000,1000000</argument>
           </arguments>
         </configuration>
 			</plugin>
@@ -46,4 +55,10 @@
 			</plugin>
 		</plugins>
 	</build>
+  <repositories>
+    <repository>
+      <id>funkyjfunctional-releases</id>
+      <url>https://github.com/pyricau/FunkyJFunctional/raw/master/releases</url>
+    </repository>
+  </repositories>
 </project>

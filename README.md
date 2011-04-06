@@ -1,24 +1,19 @@
-This benchmark seems to show that [ArrayList](http://download.oracle.com/javase/6/docs/api/java/util/ArrayList.html) is faster than [LinkedList](http://download.oracle.com/javase/6/docs/api/java/util/LinkedList.html) for appends (intuitevely, I would have guessed the opposite).
+A couple of Java microbenchmarks.
+
+I'm aware that writing a good benchmark is hard (see [Brian Goetz' article](http://www.ibm.com/developerworks/java/library/j-jtp02225.html) and [the Caliper documentation](http://code.google.com/p/caliper/wiki/JavaMicrobenchmarks)). My goal is just to have a rough estimate of "how does solution A compare to solution B?". Don't take any result for granted, real-world profiling (if possible) should always be preferred.
+
+I've used [Caliper](http://code.google.com/p/caliper) to avoid common pitfalls. If you still see a flaw in my procedure, I'll be happy to hear your comments.
 
 To run (Maven required):
 
     lib/install-libs
-    mvn exec:exec
+    mvn compile exec:exec
 
-To change the sample data size (number of appends), edit this line in `pom.xml`:
+The class to run is specified in the arguments to `exec-maven-plugin` in `pom.xml`:
 
+    <argument>AppendBenchmark</argument>
     <argument>-DappendCount=100000</argument>
 
-You can specify multiple comma-separated sizes: `10,100,1000`.
+You can specify multiple comma-separated values for the test arguments:
 
-Here is the output I get for 100,000 appends:
-
-    0% Scenario{vm=java, trial=0, benchmark=AppendToLinkedList, appendCount=100000} 4323056,29 ns; ?=732353,68 ns @ 10 trials
-    50% Scenario{vm=java, trial=0, benchmark=AppendToArrayList, appendCount=100000} 1760429,08 ns; ?=63597,29 ns @ 10 trials
-
-             benchmark   ms linear runtime
-    AppendToLinkedList 4,32 ==============================
-     AppendToArrayList 1,76 ============
-
-Writing representative microbenchmarks is hard (read [this](http://code.google.com/p/caliper/wiki/JavaMicrobenchmarks)); you shouldn't do it &mdash; and neither should I. I've used [Caliper](http://code.google.com/p/caliper) to avoid common pitfalls. If you still see a flaw in my procedure, feel free to educate me.
-
+    <argument>-DappendCount=10,100,1000</argument>
